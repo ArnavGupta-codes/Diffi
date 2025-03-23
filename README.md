@@ -1,5 +1,5 @@
 
-# DiffiScore-Trial-2
+# DiffiScore
 
 🚀 **DiffiScore(CSIS HACKATHON 2025)**
 

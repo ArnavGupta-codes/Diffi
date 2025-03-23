@@ -1,5 +1,4 @@
-# Diffi
-God is Great
+
 # DiffiScore-Trial-2
 
 🚀 **DiffiScore(CSIS HACKATHON 2025)**
@@ -7,6 +6,7 @@ God is Great
 **Authors:**  
 Arnav, Tanay, Anish, Athish  
 **We had worked on this repo first changed to this repo because of better Directory Structure and then did some changes in this: https://github.com/ArnavGupta-codes/DiffiScore_Trial1**
+
 **Date:** 3/23/2025  
 
 **Link to the video demonstration:**  

@@ -11,12 +11,13 @@ services:
       - key: PYTHON_VERSION
         value: 3.12.1
 
-static_sites:
-  # Frontend Service (React)
-  - name: diffi-frontend
+  # Frontend Service (React Static Site)
+  - type: web
+    name: diffi-frontend
+    env: static
     rootDir: frontend
     buildCommand: npm install && npm run build
-    publishDir: build
+    staticPublishPath: build
     envVars:
       - key: REACT_APP_API_URL
         fromService:

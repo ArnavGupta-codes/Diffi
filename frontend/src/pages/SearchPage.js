@@ -6,6 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
 
 const SearchPage = () => {
   const [query, setQuery] = useState("");
+  const [topK, setTopK] = useState(5);
   const [results, setResults] = useState([]);
   const [expandedImage, setExpandedImage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ const SearchPage = () => {
     setSearched(true);
     try {
       const response = await fetch(
-        `${API_URL}/search/?query=${query}&top_k=100`
+        `${API_URL}/search/?query=${encodeURIComponent(query)}&top_k=${topK}`
       );
       const data = await response.json();
       setResults(data.results);
@@ -56,6 +57,16 @@ const SearchPage = () => {
             placeholder="Enter topic... e.g. Calculus, Data Structures"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+          />
+          <input
+            className="search-input"
+            type="number"
+            min="1"
+            max="100"
+            value={topK}
+            onChange={(e) => setTopK(e.target.value)}
+            style={{ width: '80px', textAlign: 'center', flexShrink: 0 }}
+            title="Number of results"
           />
           <button className="search-btn" type="submit">
             <i className="fas fa-search"></i> Search

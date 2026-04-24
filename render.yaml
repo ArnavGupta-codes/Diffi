@@ -11,7 +11,7 @@ services:
         value: 3.12.1
 
   # Frontend Service (React)
-  - type: web
+  - type: static_site
     name: diffi-frontend
     env: static
     rootDir: frontend

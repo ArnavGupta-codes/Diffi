@@ -94,13 +94,13 @@ async def search_images(query: str = Query(...), top_k: int = 2):
     query_vector = embeddings.embed_query(query)  # Generate query embedding
     results = vector_db.similarity_search_by_vector(query_vector, k=top_k)
 
-    retrieved_metadata = [
-        {
-            "tag": r.metadata["tag"],
-            "image_path": f"/backend/uploads/{os.path.basename(r.metadata['image_path'])}"  # Ensure correct path
-        }
-        for r in results
-    ]
+    retrieved_metadata = []
+    for r in results:
+        if "image_path" in r.metadata:
+            retrieved_metadata.append({
+                "tag": r.metadata.get("tag", "Unknown"),
+                "image_path": f"/backend/uploads/{os.path.basename(r.metadata['image_path'])}"
+            })
 
     return {"query": query, "results": retrieved_metadata}
 

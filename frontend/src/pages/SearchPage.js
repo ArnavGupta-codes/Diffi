@@ -58,16 +58,18 @@ const SearchPage = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <input
-            className="search-input"
-            type="number"
-            min="1"
-            max="100"
-            value={topK}
-            onChange={(e) => setTopK(e.target.value)}
-            style={{ width: '80px', textAlign: 'center', flexShrink: 0 }}
-            title="Number of results"
-          />
+          <div className="count-wrapper" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-md)', padding: '0 12px' }}>
+            <span style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>Count</span>
+            <input
+              type="number"
+              min="1"
+              max="100"
+              value={topK}
+              onChange={(e) => setTopK(e.target.value)}
+              style={{ width: '40px', background: 'transparent', border: 'none', color: 'var(--text-primary)', outline: 'none', textAlign: 'center', fontSize: '15px' }}
+              title="Number of results"
+            />
+          </div>
           <button className="search-btn" type="submit">
             <i className="fas fa-search"></i> Search
           </button>

@@ -10,9 +10,9 @@ services:
       - key: PYTHON_VERSION
         value: 3.12.1
 
+static_sites:
   # Frontend Service (React)
-  - type: static
-    name: diffi-frontend
+  - name: diffi-frontend
     env: static
     rootDir: frontend
     buildCommand: npm install && npm run build

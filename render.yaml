@@ -1,0 +1,25 @@
+services:
+  # Backend Service (FastAPI)
+  - type: web
+    name: diffi-backend
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r ../requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.1
+
+  # Frontend Service (React)
+  - type: web
+    name: diffi-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    publishDir: build
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          name: diffi-backend
+          type: web
+          property: host

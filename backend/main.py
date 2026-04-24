@@ -92,7 +92,8 @@ async def upload_images(files: list[UploadFile] = File(...), tag: str = Form(...
 async def search_images(query: str = Query(...), top_k: int = 2):
     """Retrieve images similar to a text query."""
     query_vector = embeddings.embed_query(query)  # Generate query embedding
-    results_with_scores = vector_db.similarity_search_with_score_by_vector(query_vector, k=top_k)
+    # Request one extra result to account for the dummy document that gets filtered
+    results_with_scores = vector_db.similarity_search_with_score_by_vector(query_vector, k=top_k + 1)
 
     retrieved_metadata = []
     for r, score in results_with_scores:
@@ -101,6 +102,10 @@ async def search_images(query: str = Query(...), top_k: int = 2):
                 "tag": r.metadata.get("tag", "Unknown"),
                 "image_path": f"/backend/uploads/{os.path.basename(r.metadata['image_path'])}"
             })
+        
+        # Stop once we have reached the user's requested count
+        if len(retrieved_metadata) >= top_k:
+            break
 
     return {"query": query, "results": retrieved_metadata}
 

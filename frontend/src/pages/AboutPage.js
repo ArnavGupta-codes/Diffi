@@ -18,14 +18,14 @@ const AboutPage = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <h2>About DiffiScore</h2>
+      <h2>About Diffi</h2>
       <p>
-        DiffiScore is a question bank platform that enables educators and students
+        Diffi is a question bank platform that enables educators and students
         to upload exam questions, tag them by topic, and retrieve them instantly using semantic
         similarity search powered by FAISS and HuggingFace embeddings.
       </p>
       <p>
-        Unlike traditional keyword-based search, DiffiScore understands the meaning behind your queries.
+        Unlike traditional keyword-based search, Diffi understands the meaning behind your queries.
         Search for "derivatives" and it will find questions about calculus, differentiation, and related topics —
         even if those exact words don't appear in the tags.
       </p>

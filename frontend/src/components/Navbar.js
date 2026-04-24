@@ -28,8 +28,8 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <button className="nav-brand" onClick={() => navigate('/')}>
-        <img src="/images/logo.jpg" alt="DiffiScore logo" />
-        <h1>DiffiScore</h1>
+        <img src="/images/logo.jpg" alt="Diffi logo" />
+        <h1>Diffi</h1>
       </button>
       <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
         {links.map(link => (

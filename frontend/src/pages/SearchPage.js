@@ -1,110 +1,127 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
 import { downloadImage } from "../components/downloadImage";
+
+const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
 
 const SearchPage = () => {
   const [query, setQuery] = useState("");
-  const [topK, setTopK] = useState("");
   const [results, setResults] = useState([]);
   const [expandedImage, setExpandedImage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [searched, setSearched] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    if (!query) return;
+    setLoading(true);
+    setSearched(true);
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/search/?query=${query}&top_k=${topK}`
+        `${API_URL}/search/?query=${query}&top_k=100`
       );
       const data = await response.json();
       setResults(data.results);
     } catch (error) {
       console.error("Error fetching search results:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDownload = async (imagePath) => {
     const filename = imagePath.split("/").pop();
-    const fullUrl = `http://127.0.0.1:8000${imagePath}?t=${new Date().getTime()}`;
-
+    const fullUrl = `${API_URL}${imagePath}?t=${Date.now()}`;
     try {
       await downloadImage(fullUrl, filename);
     } catch (error) {
-      console.error("Error in download:", error);
-      alert("Failed to download image. Please try again.");
+      alert("Failed to download image.");
     }
   };
 
-  const openExpandedView = (image) => {
-    setExpandedImage(image);
-  };
-
-  const closeExpandedView = () => {
-    setExpandedImage(null);
-  };
-
   return (
-    <div className="SearchPage">
-      <form className="form" onSubmit={handleSearch}>
-        <input
-          className="search_bar"
-          id="Topic"
-          placeholder="Enter Topic..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <div className="inner-search">
+    <motion.div
+      className="search-container"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+    >
+      <h2 className="page-title">Search Questions</h2>
+      <p className="page-subtitle">Find questions by topic using semantic search</p>
+
+      <form className="search-form" onSubmit={handleSearch}>
+        <div className="search-row">
           <input
-            type="number"
-            className="NoQ"
-            placeholder="No. of questions"
-            value={topK}
-            onChange={(e) => setTopK(e.target.value)}
+            className="search-input"
+            placeholder="Enter topic... e.g. Calculus, Data Structures"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
           />
-          <button className="submit_button" type="submit">
-            <FontAwesomeIcon icon={faSearch} className="search-icon" />
+          <button className="search-btn" type="submit">
+            <i className="fas fa-search"></i> Search
           </button>
         </div>
       </form>
 
-      <div className="outer-img-container">
-        {results.length > 0 ? (
-          results.map((result, index) => (
-            <div key={index} className="img-card" onClick={() => openExpandedView(result)}>
-              <div className="img-wrapper">
-                <img
-                  src={`http://127.0.0.1:8000${result.image_path}?t=${new Date().getTime()}`}
-                  alt={result.tag}
-                />
+      {loading && <div className="spinner"></div>}
+
+      {!loading && searched && results.length > 0 && (
+        <>
+          <p className="results-header">{results.length} result{results.length !== 1 ? 's' : ''} found for "{query}"</p>
+          <div className="results-grid">
+            {results.map((result, index) => (
+              <motion.div
+                key={index}
+                className="img-card"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.05 }}
+                onClick={() => setExpandedImage(result)}
+              >
+                <div className="img-wrapper">
+                  <img
+                    src={`${API_URL}${result.image_path}?t=${Date.now()}`}
+                    alt={result.tag}
+                  />
+                </div>
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent image from expanding when clicking button
-                    handleDownload(result.image_path);
-                  }}
+                  onClick={(e) => { e.stopPropagation(); handleDownload(result.image_path); }}
                   className="download-btn"
                 >
-                  Download
+                  <i className="fas fa-download"></i> Download
                 </button>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>No results found</p>
-        )}
-      </div>
+              </motion.div>
+            ))}
+          </div>
+        </>
+      )}
 
-      {/* Expanded Image Modal with Close Button */}
+      {!loading && searched && results.length === 0 && (
+        <div className="empty-state">
+          <i className="fas fa-search"></i>
+          <p>No results found for "{query}". Try a different topic.</p>
+        </div>
+      )}
+
+      {!searched && !loading && (
+        <div className="empty-state">
+          <i className="fas fa-images"></i>
+          <p>Enter a topic above to search your question bank</p>
+        </div>
+      )}
+
       {expandedImage && (
-        <div className="modal-overlay" onClick={closeExpandedView}>
+        <div className="modal-overlay" onClick={() => setExpandedImage(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="close-btn" onClick={closeExpandedView}>✖</button>
-            <img className="image-expanded"
-              src={`http://127.0.0.1:8000${expandedImage.image_path}?t=${new Date().getTime()}`}
+            <button className="close-btn" onClick={() => setExpandedImage(null)}>✕</button>
+            <img
+              src={`${API_URL}${expandedImage.image_path}?t=${Date.now()}`}
               alt={expandedImage.tag}
             />
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

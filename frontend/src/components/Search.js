@@ -1,59 +1,27 @@
-// import React from 'react'
-// import { useNavigate } from "react-router-dom";
-
-// const Search = () => {
-//   const navigate = useNavigate();
-//   const goToSearchPage = () => {
-//     navigate("/search");
-//   };
-//   return (
-//     <div className="search">
-//       <img src="/images/search.png" width="190vw" height="210vh" />
-//       <button class="Search-btn" onClick={goToSearchPage}>
-//         SEARCH
-//       </button>
-//     </div>
-//   );
-// }
-
-// export default Search
-import React from 'react'
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Search = () => {
   const navigate = useNavigate();
-  const goToSearchPage = () => {
-    navigate("/search");
-  };
-  
   return (
-    <motion.div 
-      className="search"
-      initial={{ opacity: 0, y: 20 }}
+    <motion.div
+      className="home-card"
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
+      transition={{ duration: 0.5, delay: 0.15 }}
+      whileHover={{ y: -6 }}
     >
-      <div className="icon-container">
-        <motion.img 
-          src="/images/search.png" 
-          alt="Search icon"
-          whileHover={{ scale: 1.1 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-        />
+      <div className="card-icon">
+        <img src="/images/search.png" alt="Search" />
       </div>
-      <h2 className="card-title">Search Questions</h2>
-      {/* <p className="card-subtitle">Find questions based on difficulty level or topics</p> */}
-      <motion.button 
-        className="action-button" 
-        onClick={goToSearchPage}
-        whileTap={{ scale: 0.95 }}
-      >
-        Search
-      </motion.button>
+      <h3>Search Questions</h3>
+      <p>Find questions instantly using intelligent semantic search across your entire bank</p>
+      <button className="btn-primary" onClick={() => navigate('/search')}>
+        <i className="fas fa-search"></i> Search Now
+      </button>
     </motion.div>
   );
-}
+};
 
-export default Search
-
+export default Search;

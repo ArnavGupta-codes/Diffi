@@ -23,8 +23,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize FAISS & Embeddings
-embeddings = HuggingFaceEmbeddings(model_name="thenlper/gte-large")
+# Initialize FAISS & Embeddings (using a smaller model to fit in Render Free Tier 512MB RAM)
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 index_path = "backend/faiss_index"
 
 # Load or create FAISS index

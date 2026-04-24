@@ -1,25 +1,19 @@
 
 # DiffiScore
 
-🚀 **DiffiScore(CSIS HACKATHON 2025)**
-
-**Authors:**  
-Arnav, Tanay, Anish, Athish  
-**We had worked on this repo first changed to this repo because of better Directory Structure and then did some changes in this: https://github.com/ArnavGupta-codes/DiffiScore_Trial1**
-
-**Date:** 3/23/2025  
+🚀 **DiffiScore**
 
 **Link to the video demonstration:**  
 [Watch Here](https://drive.google.com/file/d/1hWx_WvTkvIpeKIa7PS-7jWUYRLmyi13n/view?usp=drive_link)
 
 ---
 
-## 📝 Introduction
+##  Introduction
 Welcome to **Diffiscore**, a powerful platform for uploading, storing, and searching questions efficiently. Whether you're a student, teacher, or researcher, Diffiscore makes it easy to manage question banks.
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
 ### **Uploading Questions:**
 - Users can add multiple images with the same tag at once, making it easy for a professor to create an exam on a specific topic.
@@ -35,30 +29,30 @@ Welcome to **Diffiscore**, a powerful platform for uploading, storing, and searc
 
 ## 🛠️ Tech Stack
 
-- 🚀 **FastAPI** - Backend framework
-- 🔍 **FAISS** - Image embeddings and similarity search
-- 🤗 **Hugging Face** - Text and image embeddings
-- 🖼️ **PIL (Pillow)** - Image processing
-- 🌐 **Uvicorn** - FastAPI server
-- ⚛️ **React.js** - Frontend framework
-- 📡 **Axios** - API communication
-- 🎨 **Tailwind CSS** - Modern UI styling
-- ⚡ **Vite** - Optimized frontend development
-- 🗄️ **FAISS Vector Store** - Embedding storage
-- 💾 **Local Storage** - Image storage
+-  **FastAPI** - Backend framework
+-  **FAISS** - Image embeddings and similarity search
+-  **Hugging Face** - Text and image embeddings
+-  **PIL (Pillow)** - Image processing
+-  **Uvicorn** - FastAPI server
+-  **React.js** - Frontend framework
+-  **Axios** - API communication
+-  **Tailwind CSS** - Modern UI styling
+-  **Vite** - Optimized frontend development
+-  **FAISS Vector Store** - Embedding storage
+-  **Local Storage** - Image storage
 
 ---
 
-## ⚙️ Installation & Setup
+##  Installation & Setup
 
-### 📌 Prerequisites
-- 🐍 **Python 3.13+**
-- 📂 **FAISS Index** for efficient similarity search
-- 🤗 **Hugging Face Transformers** for text processing
-- 💻 **React.js** for frontend
-- ⚡ **FastAPI** as the backend framework
+###  Prerequisites
+-  **Python 3.13+**
+-  **FAISS Index** for efficient similarity search
+-  **Hugging Face Transformers** for text processing
+-  **React.js** for frontend
+-  **FastAPI** as the backend framework
 
-### 📥 Installation Steps
+###  Installation Steps
 
 1. **Clone the repository and Go to the Diffi Directory:**
    ```bash
@@ -135,7 +129,7 @@ DiffiScore/
 
 ---
 
-## 📚 References
+##  References
 
-- 📘 **[FastAPI Documentation](https://fastapi.tiangolo.com/)**
-- ⚛️ **[React Documentation](https://react.dev/learn)**
+-  **[FastAPI Documentation](https://fastapi.tiangolo.com/)**
+-  **[React Documentation](https://react.dev/learn)**

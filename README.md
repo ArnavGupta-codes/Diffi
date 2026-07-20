@@ -59,7 +59,7 @@ Welcome to **Diffiscore**, a powerful platform for uploading, storing, and searc
 
 1. **Clone the repository and Go to the Diffi Directory:**
    ```bash
-   git clone https://github.com/Tanay-sheth/Diffi.git
+   git clone https://github.com/ArnavGupta-codes/Diffi.git
    cd Diffi
    ```
 2. **Create and activate a virtual environment(do this one after the other):**

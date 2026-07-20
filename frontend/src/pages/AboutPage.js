@@ -49,7 +49,7 @@ const AboutPage = () => {
 
       <h2>Links</h2>
       <p>
-        <a href="https://github.com/Tanay-sheth/Diffi" target="_blank" rel="noreferrer" style={{color:'var(--text-secondary)'}}>
+        <a href="https://github.com/ArnavGupta-codes/Diffi" target="_blank" rel="noreferrer" style={{color:'var(--text-secondary)'}}>
           <i className="fab fa-github"></i> GitHub Repository
         </a>
       </p>

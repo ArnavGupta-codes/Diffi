@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-brand">Diffi</div>
         <div className="footer-links">
-          <a href="https://github.com/Tanay-sheth/Diffi" target="_blank" rel="noreferrer">
+          <a href="https://github.com/ArnavGupta-codes/Diffi" target="_blank" rel="noreferrer">
             <i className="fab fa-github"></i> GitHub
           </a>
         </div>

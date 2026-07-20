@@ -1,4 +1,22 @@
 {
+  "name": "diffi",
+  "version": "1.0.0",
+  "description": "🚀 **DiffiScore(CSIS HACKATHON 2025)**",
+  "homepage": "https://github.com/ArnavGupta-codes/Diffi#readme",
+  "bugs": {
+    "url": "https://github.com/ArnavGupta-codes/Diffi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArnavGupta-codes/Diffi.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
@@ -6,5 +24,6 @@
     "lucide-react": "^0.483.0",
     "react-dropzone": "^14.3.8",
     "react-router-dom": "^7.4.0"
-  }
+  },
+  "devDependencies": {}
 }

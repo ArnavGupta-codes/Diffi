@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ImageDropArea from "../components/ImageDropArea";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 const UploadPage = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [tag, setTag] = useState("");
+  const [answer, setAnswer] = useState("");
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [resetImages, setResetImages] = useState(false);
@@ -21,20 +22,27 @@ const UploadPage = () => {
     const formData = new FormData();
     selectedFiles.forEach(file => formData.append("files", file));
     formData.append("tag", tag);
+    if (answer.trim()) {
+      formData.append("answer", answer);
+    }
 
     try {
       const response = await fetch(`${API_URL}/upload/`, {
         method: "POST",
         body: formData,
       });
-      await response.json();
-      setMessage({ text: `✅ ${selectedFiles.length} image(s) uploaded successfully! Tag: ${tag}`, type: "success" });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.detail || `Server error: ${response.status}`);
+      }
+      setMessage({ text: `${selectedFiles.length} image(s) uploaded successfully! Tag: ${tag}`, type: "success" });
       setTag("");
+      setAnswer("");
       setSelectedFiles([]);
       setResetImages(true);
     } catch (error) {
       console.error("Error uploading files:", error);
-      setMessage({ text: "❌ Upload failed. Please try again.", type: "error" });
+      setMessage({ text: "Upload failed. Please try again.", type: "error" });
     } finally {
       setLoading(false);
     }
@@ -64,6 +72,18 @@ const UploadPage = () => {
           placeholder="e.g. Linear Algebra, Thermodynamics..."
           value={tag}
           onChange={(e) => setTag(e.target.value)}
+        />
+      </div>
+
+      <div className="form-group">
+        <label className="form-label">Answer / Explanation (Optional)</label>
+        <textarea
+          className="form-input"
+          placeholder="Write the solution or explanation here..."
+          value={answer}
+          onChange={(e) => setAnswer(e.target.value)}
+          rows="4"
+          style={{ resize: 'vertical' }}
         />
       </div>
 

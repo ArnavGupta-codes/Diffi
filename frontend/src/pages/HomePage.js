@@ -1,8 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Upload from '../components/Upload';
 import Search from '../components/Search';
+
+const faqData = [
+  {
+    question: "How does the semantic search work?",
+    answer: "We use a HuggingFace sentence transformer to convert your text queries and image tags into dense vector embeddings. These are then searched using FAISS (Facebook AI Similarity Search) to find the most conceptually related questions, going far beyond simple keyword matching."
+  },
+  {
+    question: "Can I upload handwritten questions?",
+    answer: "Yes! Our platform supports image uploads, so you can easily take a picture of handwritten notes or exam papers and upload them directly."
+  },
+  {
+    question: "Is there a limit to how many questions I can upload?",
+    answer: "There are currently no strict limits on uploads. You can batch upload multiple images at once and assign a common topic tag to all of them to save time."
+  },
+  {
+    question: "Who can see the questions I upload?",
+    answer: "Diffi is designed as a collaborative platform. Questions you upload are indexed globally so that anyone studying similar topics can benefit from your contributions."
+  }
+];
+
+function FAQItem({ faq, index }) {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <motion.div 
+      className="faq-item"
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+      viewport={{ once: true }}
+    >
+      <div className="faq-question" onClick={() => setIsOpen(!isOpen)}>
+        {faq.question}
+        <i className={`fas fa-chevron-${isOpen ? 'up' : 'down'}`}></i>
+      </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="faq-answer"
+          >
+            {faq.answer}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
 
 function HomePage() {
   const navigate = useNavigate();
@@ -140,6 +190,19 @@ function HomePage() {
               <h3>{step.title}</h3>
               <p>{step.desc}</p>
             </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="faq-section">
+        <div className="section-header">
+          <div className="section-label">FAQ</div>
+          <h2 className="section-title">Frequently Asked Questions</h2>
+        </div>
+        <div className="faq-list">
+          {faqData.map((faq, index) => (
+            <FAQItem key={index} faq={faq} index={index} />
           ))}
         </div>
       </section>
